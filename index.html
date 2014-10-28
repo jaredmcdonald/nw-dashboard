@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="./css/style.css"/>
+  </head>
+  <body>
+    <section>
+      <h1>Current Time</h1>
+      <pre id="clock"></pre>
+    </section>
+    <section>
+      <h1 id="weatherHeadline"></h1>
+      <img id="weatherIcon"/>
+      <p id="weatherDescription"></p>
+    </section>
+    <script>
+      require('./app.js').init()
+    </script>
+  </body>
+</html>

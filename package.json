@@ -1,0 +1,16 @@
+{
+  "name": "nw-demo",
+  "main": "index.html",
+  "dependencies": {
+    "nconf": "^0.6.9",
+    "nodewebkit": "^0.10.5",
+    "request": "^2.47.0"
+  },
+  "scripts": {
+    "start": "nodewebkit"
+  },
+  "window": {
+    "frame": false,
+    "toolbar": false
+  }
+}
