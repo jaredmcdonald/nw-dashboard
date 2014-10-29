@@ -1,22 +1,28 @@
 var request = require('request')
+,   getView = require('../../view-getter')
 
-function handleWeatherResponse (err, res, body) {
-  if (err) {
-    console.error(err)
-    return false
+function handleWeatherResponse (template, body) {
+  var data = {
+    icon : body.current_observation.icon_url,
+    description : body.current_observation.weather,
+    city : body.current_observation.display_location.city,
+    temperature : body.current_observation.temp_f
   }
-
-  var parsed = JSON.parse(body)
-  ,   iconUrl = parsed.current_observation.icon_url
-  ,   weatherText = parsed.current_observation.weather
-  ,   cityText = parsed.current_observation.display_location.city
-  ,   doc = window.document
-
-  doc.getElementById('weatherIcon').setAttribute('src', iconUrl)
-  doc.getElementById('weatherDescription').innerHTML = weatherText
-  doc.getElementById('weatherHeadline').innerHTML = 'Weather for ' + cityText
+  window.document.getElementById('weather').innerHTML = template(data)
 }
 
 module.exports = function (key) {
-  request('http://api.wunderground.com/api/' + key + '/conditions/q/autoip.json', handleWeatherResponse)
+  getView('weather', function (err, template) {
+    if (err) {
+      console.error(err)
+      return false
+    }
+    request('http://api.wunderground.com/api/' + key + '/conditions/q/autoip.json', function (apiErr, res, body) {
+      if (apiErr) {
+        console.error(apiErr)
+        return false
+      }
+      handleWeatherResponse(template, JSON.parse(body))
+    })
+  })
 }

@@ -5,17 +5,12 @@
     <link rel="stylesheet" href="./css/style.css"/>
   </head>
   <body>
-    <section>
+    <section id="clock">
       <h1>Current Time</h1>
-      <pre id="clock"></pre>
+      <pre></pre>
     </section>
-    <section>
-      <h1 id="weatherHeadline"></h1>
-      <img id="weatherIcon"/>
-      <p id="weatherDescription"></p>
-    </section>
-    <section id="todos">
-    </section>
+    <section id="weather"></section>
+    <section id="todos"></section>
     <script>
       require('./app.js').init()
     </script>

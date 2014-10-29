@@ -1,14 +1,13 @@
 var getView    = require('../../view-getter')
 ,   request    = require('request')
-,   handlebars = require('handlebars')
 
 module.exports = function (server) {
-  getView('todos', function (err, viewTxt) {
+  getView('todos', function (err, template) {
     if (err){
       console.error('error getting view:', err)
       return false
     }
-    init(server, handlebars.compile(viewTxt))
+    init(server, template)
   })
 }
 

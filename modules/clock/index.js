@@ -1,5 +1,5 @@
 function setClock () {
-  window.document.getElementById('clock').innerHTML = new Date().toLocaleTimeString()
+  window.document.querySelector('#clock pre').innerHTML = new Date().toLocaleString()
 }
 
 module.exports = function () {
