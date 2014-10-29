@@ -1,0 +1,6 @@
+<h1>To Do</h1>
+<ul class="todos">
+  {{#each this}}
+  <li data-id="{{@index}}"><span class="todo-title">{{title}}</span><span class="todo-description">{{description}}</span></li>
+  {{/each}}
+</ul>
