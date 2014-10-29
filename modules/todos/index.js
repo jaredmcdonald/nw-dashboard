@@ -13,6 +13,7 @@ module.exports = function (server) {
 
 function init (server, template) {
   getTodos(server, template)
+  watchTodos(server, template)
 }
 
 function getTodos (server, template) {
@@ -22,6 +23,57 @@ function getTodos (server, template) {
       return false
     }
     render(JSON.parse(body), template)
+  })
+}
+
+function submitTodo (server, template, todo) {
+  request.post(server + '/todos/create', { form : { description : todo }}, function (err, res, body) {
+    if (err) {
+      window.alert('error saving todo :(')
+      console.error(err)
+      return false
+    }
+    getTodos(server, template)
+  })
+}
+
+function deleteTodo (server, template, id) {
+  request.del(server + '/todos/' + id.toString(), null, function (err, res, body) {
+    if (err) {
+      window.alert('error deleting todo :(')
+      console.error(err)
+      return false
+    }
+    getTodos(server, template)
+  })
+}
+
+function watchTodos (server, template) {
+  var $todos = window.document.getElementById('todos')
+  ,   deleteClassRegex = /\bdelete\b/
+
+  $todos.addEventListener('submit', function (event) {
+    event.preventDefault()
+    if (event.target && event.target.nodeName === 'FORM') {
+      
+      var todoDescription = event.target.children[0].value
+
+      if (todoDescription === '') {
+        return false
+      }
+
+      submitTodo(server, template, todoDescription)
+
+    }
+  })
+
+  $todos.addEventListener('click', function (event) {
+    event.preventDefault()
+    
+    if (event.target && deleteClassRegex.test(event.target.className)) {
+      deleteTodo(server, template, event.target.dataset.id)
+    }
+
   })
 }
 

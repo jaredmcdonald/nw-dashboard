@@ -3,6 +3,7 @@
   "main": "index.html",
   "dependencies": {
     "handlebars": "^2.0.0",
+    "moment": "^2.8.3",
     "nconf": "^0.6.9",
     "nodewebkit": "^0.10.5",
     "request": "^2.47.0"

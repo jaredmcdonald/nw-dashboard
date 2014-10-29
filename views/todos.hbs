@@ -1,6 +1,7 @@
 <h1>To Do</h1>
 <ul class="todos">
   {{#each this}}
-  <li data-id="{{@index}}"><span class="todo-title">{{title}}</span><span class="todo-description">{{description}}</span></li>
+  <li><span class="todo-description">{{description}}</span> <a class="delete" href="#" data-id="{{@index}}">delete</a></li>
   {{/each}}
+  <li><form><input type="text" placeholder="new todo (enter to submit)"/></form>
 </ul>

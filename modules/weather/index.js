@@ -1,6 +1,7 @@
 var request = require('request')
+,   moment = require('moment')
 ,   getView = require('../../view-getter')
-,   pollFrequency = 60 * 5 * 1000 // 5 mins
+,   pollFrequency = moment.duration(5, 'minutes')
 ,   intervalKey = null
 
 function handleWeatherResponse (template, body) {
