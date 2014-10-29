@@ -14,8 +14,7 @@ function handleWeatherResponse (template, body) {
 }
 
 function getWeather (key, template) {
-    console.log('getWeather. . . . ')
-    request('http://api.wunderground.com/api/' + key + '/conditions/q/autoip.json', function (err, res, body) {
+  request('http://api.wunderground.com/api/' + key + '/conditions/q/autoip.json', function (err, res, body) {
     if (err) {
       console.error(err)
       return false
