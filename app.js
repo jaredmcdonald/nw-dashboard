@@ -1,4 +1,5 @@
-var nconf = require('nconf')
+var nconf = require('nconf'),
+    handlebars = require('handlebars')
 
 // config
 nconf.argv()
@@ -13,8 +14,8 @@ var weather = require('./modules/weather')
 // export app
 module.exports = {
   init : function () {
-    weather(nconf.get('WUNDERGROUND_API_KEY'))
-    todos(nconf.get('TODO_SERVER_URL'))
+    weather(nconf.get('WUNDERGROUND_API_KEY'), handlebars)
+    todos(nconf.get('TODO_SERVER_URL'), handlebars)
     clock()
   }
 }

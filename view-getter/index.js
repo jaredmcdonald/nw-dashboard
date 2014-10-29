@@ -1,10 +1,9 @@
 var fs = require('fs')
 ,   path = require('path')
-,   handlebars = require('handlebars')
 ,   viewDir = path.join(__dirname, '../views')
 ,   extRegex = /\.hbs$/
 
-module.exports = function getView (viewName, callback) {
+module.exports = function getView (viewName, handlebars, callback) {
   if (!extRegex.test(viewName)) {
     viewName += '.hbs'
   }

@@ -25,8 +25,8 @@ function getWeather (key, template) {
 }
 
 
-module.exports = function (key) {
-  getView('weather', function (err, template) {
+module.exports = function (key, handlebars) {
+  getView('weather', handlebars, function (err, template) {
     if (err) {
       console.error(err)
       return false
