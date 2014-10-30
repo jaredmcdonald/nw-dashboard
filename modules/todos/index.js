@@ -49,7 +49,7 @@ function completeTodo (server, template, id) {
   var targetTodo = _.find(todos, { _id : id })
   targetTodo.completed = !targetTodo.completed // toggle
 
-  request.put({
+  request.patch({
     url : server + '/todos/' + id.toString(),
     json : true,
     body : { completed : targetTodo.completed }
