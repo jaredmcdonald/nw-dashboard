@@ -1,10 +1,14 @@
-var nconf = require('nconf'),
-    handlebars = require('handlebars')
+var nconf = require('nconf')
+,   handlebars = require('handlebars')
+,   gui = window.nwDispatcher.requireNwGui()
 
 // config
 nconf.argv()
      .env()
      .file({ file: './config.json' })
+
+// menu bar
+require('./menu')(gui)
 
 // modules
 var weather = require('./modules/weather')
