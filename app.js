@@ -11,14 +11,18 @@ nconf.argv()
 require('./menu')(gui)
 
 // modules
-var weather = require('./modules/weather')
-,   clock   = require('./modules/clock')
-,   todos   = require('./modules/todos')
+var weather  = require('./modules/weather')
+,   forecast = require('./modules/forecast')
+,   clock    = require('./modules/clock')
+,   todos    = require('./modules/todos')
 
 // export app
 module.exports = {
   init : function () {
-    weather(nconf.get('WUNDERGROUND_API_KEY'), handlebars)
+    var weatherKey = nconf.get('WUNDERGROUND_API_KEY')
+    
+    weather(weatherKey, handlebars)
+    forecast(weatherKey, handlebars)
     todos(nconf.get('TODO_SERVER_URL'), handlebars)
     clock()
   }

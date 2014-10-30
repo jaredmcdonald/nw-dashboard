@@ -4,3 +4,6 @@ body {
 .todos .completed .todo-description {
   text-decoration: line-through;
 }
+.forecast-unit {
+    display: inline-block;
+}

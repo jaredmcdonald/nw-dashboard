@@ -13,7 +13,9 @@
     "start": "nodewebkit"
   },
   "window": {
+    "title": "nw-dashboard",
     "frame": false,
-    "toolbar": false
+    "toolbar": false,
+    "always-on-top": true
   }
 }

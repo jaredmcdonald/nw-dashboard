@@ -24,7 +24,6 @@ function getWeather (key, template) {
   })
 }
 
-
 module.exports = function (key, handlebars) {
   getView('weather', handlebars, function (err, template) {
     if (err) {
