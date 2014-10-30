@@ -16,6 +16,9 @@
     "title": "nw-dashboard",
     "frame": false,
     "toolbar": false,
+    "width": 340,
+    "height": 620,
+    "resizable": false,
     "always-on-top": true
   }
 }
