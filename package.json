@@ -6,7 +6,8 @@
     "moment": "^2.8.3",
     "nconf": "^0.6.9",
     "nodewebkit": "^0.10.5",
-    "request": "^2.47.0"
+    "request": "^2.47.0",
+    "underscore": "^1.7.0"
   },
   "scripts": {
     "start": "nodewebkit"

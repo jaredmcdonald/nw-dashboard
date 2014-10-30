@@ -1,5 +1,6 @@
 var getView    = require('../../view-getter')
 ,   request    = require('request')
+,   _          = require('underscore')
 ,   todos      = []
 
 function init (server, template) {
@@ -34,7 +35,7 @@ function submitTodo (server, template, todo) {
 }
 
 function deleteTodo (server, template, id) {
-  request.del(server + '/todos/' + id.toString(), null, function (err, res, body) {
+  request.del(server + '/todos/' + id, null, function (err, res, body) {
     if (err) {
       window.alert('error deleting todo :(')
       console.error(err)
@@ -45,12 +46,13 @@ function deleteTodo (server, template, id) {
 }
 
 function completeTodo (server, template, id) {
-  todos[id].completed = !todos[id].completed // toggle
+  var targetTodo = _.find(todos, { _id : id })
+  targetTodo.completed = !targetTodo.completed // toggle
 
   request.put({
     url : server + '/todos/' + id.toString(),
     json : true,
-    body : todos[id]
+    body : { completed : targetTodo.completed }
   }, function (err, res, body) {
     if (err) {
       window.alert('error updating todo :(')
@@ -69,7 +71,7 @@ function watchTodos (server, template) {
   $todos.addEventListener('submit', function (event) {
     event.preventDefault()
     if (event.target && event.target.nodeName === 'FORM') {
-      
+
       var todoDescription = event.target.children[0].value
 
       if (todoDescription === '') {
@@ -83,18 +85,17 @@ function watchTodos (server, template) {
 
   $todos.addEventListener('click', function (event) {
     event.preventDefault()
-
     if (!event.target) {
       return false
     }
-    var id = parseInt(event.target.dataset.id)
+
+    var id = event.target.dataset.id
 
     if (deleteClassRegex.test(event.target.className)) {
       deleteTodo(server, template, id)
       return false
     }
     if (completeClassRegex.test(event.target.className)) {
-
       completeTodo(server, template, id)
       return false
     }
@@ -103,6 +104,9 @@ function watchTodos (server, template) {
 }
 
 function render (data, template) {
+  data.forEach(function (item) {
+    item.id = item._id // handlebars apparently doesn't support property
+  })                   // names that begin with underscores
   var html = template(data)
   window.document.getElementById('todos').innerHTML = html
 }
