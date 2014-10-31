@@ -12,10 +12,14 @@ function displayAlert (data, template) {
   if (!eventListenerOn) {
     $alerts.addEventListener('click', function (event) {
       if (event.target && dismissClassRegex.test(event.target.classList)) {
-        $alerts.innerHTML = ''
+        deleteAlert()
       }
     })
   }
+}
+
+function deleteAlert () {
+  $alerts.innerHTML = ''
 }
 
 module.exports = function (port, handlebars) {
@@ -38,6 +42,12 @@ module.exports = function (port, handlebars) {
 
       displayAlert(req.body, template)
       res.send(200, { 'status' : 'ok' })
+      next()
+    })
+
+    server.del('/alert', function (req, res, next) {
+      deleteAlert()
+      res.send(204)
       next()
     })
 
