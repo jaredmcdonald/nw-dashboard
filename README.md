@@ -10,7 +10,7 @@ get a free [weather underground api](http://www.wunderground.com/weather/api/) k
 
 ```json
 {
-  "ALERT_SERVER_PORT" : <localhost port on which to listen>,
+  "ALERT_SERVER_PORT" : 3000,
   "WUNDERGROUND_API_KEY" : "<your api key here>",
   "TODO_SERVER_URL" : "https://path/to/your-todo-server"
 }
@@ -24,7 +24,7 @@ npm start
 
 ## alert POSTs
 
-nw-dashboard has a POST endpoint for recieving (very rudimentary) alerts. POSTs to `http://localhost:<port>/alert` should have the following two fields:
+nw-dashboard has a POST endpoint for recieving (very rudimentary) alerts. POSTs to `http://localhost:<port>/alert` (`port` is the value specified in `config.json` as `"ALERT_SERVER_PORT"`; defaults to 8080) should have the following two fields:
 
 ```json
 {
