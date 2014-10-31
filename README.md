@@ -34,3 +34,5 @@ nw-dashboard has a POST endpoint for recieving (very rudimentary) alerts. POSTs 
 ```
 
 otherwise the server will reject them with a `400 Bad Request`. if accepted, server will send `200 OK`
+
+also note that sending a DELETE to `/alert` will delete the alert from the GUI and return `204 No Content`
