@@ -26,6 +26,6 @@ module.exports = {
     forecast(weatherKey, handlebars)
     todos(nconf.get('TODO_SERVER_URL'), handlebars)
     clock()
-    alerts(nconf.get('ALERT_SERVER_PORT'), handlebars)
+    alerts(nconf.get('ALERT_SERVER_HOST'), nconf.get('ALERT_SERVER_PORT'), handlebars)
   }
 }

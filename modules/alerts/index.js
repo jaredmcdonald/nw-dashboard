@@ -34,7 +34,7 @@ function deleteAlert (id) {
   return hasAlerts
 }
 
-module.exports = function (port, handlebars) {
+module.exports = function (host, port, handlebars) {
 
   getView('alerts', handlebars, function (err, template) {
     if (err) {
@@ -42,7 +42,7 @@ module.exports = function (port, handlebars) {
       return false
     }
 
-    server.listen(port || 8080, 'localhost', function () {
+    server.listen(port || 8080, host || 'localhost', function () {
       console.log(server.name + ' listening at ' + server.url)
     })
 

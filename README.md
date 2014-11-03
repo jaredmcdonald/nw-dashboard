@@ -10,6 +10,7 @@ get a free [weather underground api](http://www.wunderground.com/weather/api/) k
 
 ```json
 {
+  "ALERT_SERVER_HOST" : "1.2.3.4",
   "ALERT_SERVER_PORT" : 3000,
   "WUNDERGROUND_API_KEY" : "<your api key here>",
   "TODO_SERVER_URL" : "https://path/to/your-todo-server"
@@ -24,7 +25,7 @@ npm start
 
 ## alert server
 
-nw-dashboard has a built-in server for receiving, retrieving and deleting (very rudimentary) alert messages. server starts up automatically at `http://localhost:<port>`, where `port` is the value specified in `config.json` as `"ALERT_SERVER_PORT"` (defaults to `8080`). note that for now there is no persistence for alerts--they're just stored in-memory as an array
+nw-dashboard has a built-in server for receiving, retrieving and deleting (very rudimentary) alert messages. server starts up automatically at `http://<host>:<port>`, where `port` is the value specified in `config.json` as `"ALERT_SERVER_PORT"` (defaults to `8080`) and `host` is `"ALERT_SERVER_HOST"` (default is `localhost`, but I've had problems seeing this elsewhere on a network and ended up specifying a network IP here to make it visible). note that for now there is no persistence for alerts--they're just stored in-memory as an array
 
 routes:
 
