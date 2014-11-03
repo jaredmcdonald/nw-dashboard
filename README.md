@@ -22,9 +22,15 @@ then
 npm start
 ```
 
-## alert POSTs
+## alert server
 
-nw-dashboard has a POST endpoint for recieving (very rudimentary) alerts. POSTs to `http://localhost:<port>/alert` (`port` is the value specified in `config.json` as `"ALERT_SERVER_PORT"`; defaults to 8080) should have the following two fields:
+nw-dashboard has a built-in server for receiving, retrieving and deleting (very rudimentary) alert messages. server starts up automatically at `http://localhost:<port>`, where `port` is the value specified in `config.json` as `"ALERT_SERVER_PORT"` (defaults to `8080`). note that for now there is no persistence for alerts--they're just stored in-memory as an array
+
+routes:
+
+### POST `/alert`
+
+body must contain the following two fields:
 
 ```json
 {
@@ -33,6 +39,16 @@ nw-dashboard has a POST endpoint for recieving (very rudimentary) alerts. POSTs 
 }
 ```
 
-otherwise the server will reject them with a `400 Bad Request`. if accepted, server will send `200 OK`
+otherwise the server will reject them with a `400 Bad Request`. if accepted, server will send `201 Created` with the url of the resource (`/alerts/<id>`)
 
-also note that sending a DELETE to `/alert` will delete the alert from the GUI and return `204 No Content`
+### DELETE `/alert/<id>`
+
+deletes the alert with the specified id and return `204 No Content` if there is an alert with that id; `404 Not Found` otherwise
+
+### GET `/alert/<id>`
+
+returns the alert with the specified id (`200 OK`) if there is an alert with that id; `404 Not Found` otherwise
+
+### GET `/alert/all`
+
+returns all alerts (`200 OK`). deleted alerts appear as `null` to preserve array indexing (I know, I know...)
