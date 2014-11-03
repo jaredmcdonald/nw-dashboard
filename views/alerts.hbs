@@ -1,3 +1,8 @@
 <h2>Alert</h2>
-<p><strong>{{title}}</strong>: {{description}}</p>
-<a class="dismiss" href="#">dismiss</a>
+{{#each this}}
+  {{#if this}}
+  <article class="alert">
+    <p><strong>{{title}}</strong>: {{description}} <a class="dismiss" href="#" data-id="{{@index}}">dismiss</a></p>
+  </article>
+  {{/if}}
+{{/each}}
