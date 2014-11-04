@@ -54,7 +54,13 @@ function init (template, host, port) {
     }
 
     var id = generateID()
-    alerts.push(_.extend(req.body, { id : id }))
+    // only allow 'title' and 'description'
+    ,   data = {
+          title : req.body.title,
+          description : req.body.description
+        }
+
+    alerts.push(_.extend(data, { id : id }))
     render(template)
 
     res.send(201, { 'status' : 'created', 'url' : '/alert/' + id })
