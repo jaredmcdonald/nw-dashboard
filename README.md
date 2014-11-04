@@ -50,6 +50,10 @@ deletes the alert with the specified id and return `204 No Content` if there is 
 
 returns the alert with the specified id (`200 OK`) if there is an alert with that id; `404 Not Found` otherwise
 
+### PATCH `alert/<id>`
+
+updates fields of the alert with the specified id with values in the body of the request (`204 No Content`); fields that are not `"title"` and `"description"` are ignored. if alert with specified id isn't found, `404`
+
 ### GET `/alert/all`
 
 returns all alerts (`200 OK`)

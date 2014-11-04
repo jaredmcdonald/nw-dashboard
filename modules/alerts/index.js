@@ -78,6 +78,29 @@ function init (template, host, port) {
     next()
   })
 
+  server.patch('/alert/:id', function (req, res, next) {
+    var id = req.params.id
+    ,   alert = _.find(alerts, function (item) {
+          return item.id === id
+        })
+
+    if (!alert) {
+      res.send(404)
+      return false
+    }
+
+    Object.keys(req.body).forEach(function (key) {
+      if (key === 'title' || key === 'description') {
+        alert[key] = req.body[key]
+      }
+    })
+
+    render(template)
+
+    res.send(204)
+    next()
+  })
+
   server.del('/alert/:id', function (req, res, next) {
     var id = req.params.id
 
