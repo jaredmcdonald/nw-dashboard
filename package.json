@@ -1,5 +1,5 @@
 {
-  "name": "nw-demo",
+  "name": "nw-dashboard",
   "main": "index.html",
   "repository": "https://github.com/jaredmcdonald/nw-dashboard",
   "dependencies": {
