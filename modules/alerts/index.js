@@ -5,9 +5,9 @@ var restify = require('restify')
 ,   dismissClassRegex = /\bdismiss\b/
 ,   alerts = []
 
-// get a UUID for alerts
+// get an ID for alerts
 // (just a timestamp for now)
-function generateUUID () {
+function generateID () {
   return Date.now().toString(16)
 }
 
@@ -53,7 +53,7 @@ function init (template, host, port) {
       return false
     }
 
-    var id = generateUUID()
+    var id = generateID()
     alerts.push(_.extend(req.body, { id : id }))
     render(template)
 
