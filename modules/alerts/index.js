@@ -10,28 +10,28 @@ var server = restify.createServer()
 server.use(restify.bodyParser({ mapParams: false }))
 server.use(restify.queryParser())
 
+function generateUUID () {
+  return Date.now().toString(16) // for now
+}
+
 function displayAlerts (data, template) {
   $alerts.innerHTML = template(data)
   if (!eventListenerOn) {
     $alerts.addEventListener('click', function (event) {
       if (event.target && dismissClassRegex.test(event.target.classList)) {
-        deleteAlert(parseInt(event.target.dataset.id))
-        && displayAlerts (alerts, template)
+        deleteAlert(event.target.dataset.id)
+        displayAlerts (alerts, template)
       }
     })
   }
 }
 
 function deleteAlert (id) {
-  delete alerts[id]
-
-  var hasAlerts = _.some(alerts, function (item) { return !!item })
-
-  if (!hasAlerts) {
-    $alerts.innerHTML = ''
-  }
-
-  return hasAlerts
+  var beforeLength = alerts.length
+  alerts = _.filter(alerts, function (item) {
+    return item.id !== id
+  })
+  return alerts.length !== beforeLength // true if successful
 }
 
 module.exports = function (host, port, handlebars) {
@@ -52,8 +52,10 @@ module.exports = function (host, port, handlebars) {
         return false
       }
 
-      var id = alerts.push(req.body) - 1
+      var id = generateUUID()
+      alerts.push(_.extend(req.body, { id : id }))
       displayAlerts(alerts, template)
+
       res.send(201, { 'status' : 'created', 'url' : '/alert/' + id })
       next()
     })
@@ -62,26 +64,29 @@ module.exports = function (host, port, handlebars) {
       var all = req.params.id === 'all'
 
       if (!all) {
-          var id = parseInt(req.params.id)
-          if (!alerts[id]) {
+          var id = req.params.id
+          ,   alert = _.find(alerts, { id : id })
+
+          if (!alert) {
             res.send(404)
             return false
           }
       }
 
-      res.send(200, all ? alerts : alerts[id])
+      res.send(200, all ? alerts : alert)
       next()
     })
 
     server.del('/alert/:id', function (req, res, next) {
-      var id = parseInt(req.params.id)
+      var id = req.params.id
 
-      if (!alerts[id]) {
+      if (!deleteAlert(id)) {
         res.send(404)
         return false
       }
 
-      deleteAlert(id) && displayAlerts(alerts, template)
+      displayAlerts(alerts, template)
+
       res.send(204)
       next()
     })

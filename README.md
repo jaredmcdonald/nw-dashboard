@@ -52,4 +52,4 @@ returns the alert with the specified id (`200 OK`) if there is an alert with tha
 
 ### GET `/alert/all`
 
-returns all alerts (`200 OK`). deleted alerts appear as `null` to preserve array indexing (I know, I know...)
+returns all alerts (`200 OK`)
